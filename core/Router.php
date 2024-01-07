@@ -1,8 +1,8 @@
-<?php 
- 
+<?php
 
 
-    class Router
+
+class Router
 {
 
     private $controller = 'App\Controller\HomeController';
@@ -29,36 +29,40 @@
             if (class_exists($controller)) {
                 $this->controller = $controller;
             } else {
-                include  '../app/View/404/404.php';
-                exit;
+
+                $this->error();
+
             }
         }
 
-        $class = $this->controller;
-        $objetController = new $class;
+        $this->controller = new $this->controller;
 
 
         if (isset($uri[1])) {
 
             $method = $uri[1];
             unset($uri[1]);
-            
-            if (method_exists($objetController, $method)) {
+
+            if (method_exists($this->controller, $method)) {
                 $this->method = $method;
             } else {
-                include  '../app/View/404/404.php';
-          
-                
-                exit;
+                $this->error();
+
             }
         }
 
-        
+
         if (isset($uri[2])) {
             $this->params = array_values($uri);
-            
         }
 
-        call_user_func_array([$objetController, $this->method], $this->params);
+        call_user_func_array([$this->controller, $this->method], $this->params);
+    }
+    function error()
+    {
+        $this->controller = 'App\Controller\Error';
+        $this->controller = new $this->controller;
+        call_user_func_array([$this->controller, $this->method], $this->params);
+        die;
     }
 }

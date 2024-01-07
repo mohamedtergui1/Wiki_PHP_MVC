@@ -1,170 +1,176 @@
 <?php
-     namespace App\Orm;
-     use PDOException;
-     use PDO;
-     use App\DataBase\DataBase;
-     class Orm {
-        private $db_database_connect;
+namespace App\Orm;
 
-        public function __construct() {
-            $this->db_database_connect = (new DataBase())->getPdo();
-        }
-        public function selectAll( string  $table, int $id = null)
-        {
+use PDOException;
+use PDO;
+use App\DataBase\DataBase;
 
-            if($id!==null)
-                $where = "WHERE  id =:id";
-            else $where = "";
-            try {
-                
-                $stmt = $this->db_database_connect->prepare("SELECT * FROM {$table} {$where}");
-                if($id!==null)  $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-                $stmt->execute();
-                if($id!==null)
-                return $stmt->fetch(PDO::FETCH_OBJ);
-               
-                else  return $stmt->fetchAll(PDO::FETCH_OBJ);
-                
-
-            } catch (PDOException $e) {
-
-                echo "Error: " . $e->getMessage();
-
-                return false;
-            }
-        }
-    
-        public function insert($table, array $data)
-        {
-            $placeValues = ":" . implode(",:", array_keys($data));
-            $columnNames = implode(",", array_keys($data));
-        
-            try {
-                $stmt = $this->db_database_connect->prepare("INSERT INTO {$table} ({$columnNames}) VALUES ({$placeValues})");
-        
-                foreach ($data as $key => $val) {
-                    echo $val . "  =  " . gettype($val) . "<br>";
-                    $type = gettype($val);
-                    switch ($type) {
-                        case "integer":
-                            $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
-                            break;
-        
-                        case "boolean":
-                            $stmt->bindValue(":$key", $val, PDO::PARAM_BOOL);
-                            break;
-        
-                        default:
-                            $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
-                    }
-                }
-        
-               $stmt = $stmt->execute();
-                return $stmt;
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-                return false;
-            }
-        }
-        
-    
-        public function update($table, $data, $id)
+class Orm
 {
-    $placeColumnsValues = implode(", ", array_map(function ($key, $value) {
-        return " $key = :$key ";
-    }, array_keys($data), $data));
+    private $db_database_connect;
 
-    try {
-        $stmt = $this->db_database_connect->prepare("UPDATE {$table} SET {$placeColumnsValues} WHERE id = :id");
-
-        foreach ($data as $key => $val) {
-            echo $val . "  =  " . gettype($val) . "<br>";
-            $type = gettype($val);
-            switch ($type) {
-                case "integer":
-                    $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
-                    break;
-
-                case "boolean":
-                    $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
-                    break;
-
-                default:
-                    $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
-            }
-        }
-        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-        $success = $stmt->execute();
-        return $success;
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-        return false;
+    public function __construct()
+    {
+        $this->db_database_connect = (new DataBase())->getPdo();
     }
-}
+    public function selectAll(string $table, int $id = null)
+    {
 
-        public function delete($table, $id)
-        {
-            try {
-                
-                $stmt = $this->db_database_connect->prepare("DELETE FROM {$table} WHERE  id =:id");
+        if ($id !== null) {
+            $id += 0;
+            $where = "WHERE  id =:id";
+        } else
+            $where = "";
+        try {
+
+            $stmt = $this->db_database_connect->prepare("SELECT * FROM {$table} {$where}");
+            if ($id !== null)
                 $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-                $stmt->execute();
-
-                return $stmt;
-
-            } catch (PDOException $e) {
-
-                echo "Error: " . $e->getMessage();
-
-                return false;
-            }
-        }
-
-        public function find($table, $inputSearch)
-        {      
-              $placeSearchCondition = implode("AND", array_map(function ($key, $value) {
-                return "$key LIKE '%:$key%'";
-            }, array_keys($inputSearch), $inputSearch));
-            try 
-            {
-                
-                $stmt = $this->db_database_connect->prepare("DELETE FROM {$table} WHERE {$placeSearchCondition}");
-
-                foreach ($inputSearch as $key => $value) 
-                {
-
-                    $stmt->bindValue(":$key", $value, PDO::PARAM_STR);    
-
-                }
-
-                $stmt->execute();
-
-                return $stmt;
-
-            } catch (PDOException $e) 
-            {
-
-                echo "Error: " . $e->getMessage();
-
-                return false;
-            }
-        }
-        public function innerJoinSelect($tables, $COLUMNS, $condition , $where)
-        {
-            $tables= implode(" INNER JOIN ",$tables);
-            $condition= implode(" AND ", array_map(function ($key, $value) {
-            return "$key = $value";
-            }, array_keys($condition),$condition));
-            $where =implode(" AND ", array_map(function ($key,$value){
-                return "$key=$value";
-            },array_keys($where), $where));
-            $COLUMNS=implode(",",$COLUMNS);
-
-            $stmt = $this->db_database_connect->prepare("SELECT {$COLUMNS}  FROM {$tables} ON {$condition} WHERE  {$where}");
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
-        
+            if ($id !== null)
+                return $stmt->fetch(PDO::FETCH_OBJ);
+            else
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+
+        } catch (PDOException $e) {
+
+            echo "Error: " . $e->getMessage();
+
+            return false;
         }
-       
     }
-    
+
+    public function insert(string $table, array $data)
+    {
+        $placeValues = ":" . implode(",:", array_keys($data));
+        $columnNames = implode(",", array_keys($data));
+
+        try {
+            $stmt = $this->db_database_connect->prepare("INSERT INTO {$table} ({$columnNames}) VALUES ({$placeValues})");
+
+            foreach ($data as $key => $val) {
+                echo $val . "  =  " . gettype($val) . "<br>";
+                $type = gettype($val);
+                switch ($type) {
+                    case "integer":
+                        $val+=0;
+                        $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
+                        break;
+
+                    case "boolean":
+                        $stmt->bindValue(":$key", $val, PDO::PARAM_BOOL);
+                        break;
+
+                    default:
+                        $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
+                }
+            }
+
+            $stmt = $stmt->execute();
+            return $stmt;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+
+    public function update(string $table, array $data, int $id)
+    {
+        $placeColumnsValues = implode(", ", array_map(function ($key, $value) {
+            return " $key = :$key ";
+        }, array_keys($data), $data));
+
+        try {
+            $stmt = $this->db_database_connect->prepare("UPDATE {$table} SET {$placeColumnsValues} WHERE id = :id");
+
+            foreach ($data as $key => $val) {
+                echo $val . "  =  " . gettype($val) . "<br>";
+                $type = gettype($val);
+                switch ($type) {
+                    case "integer":
+                        $val+=0;
+                        $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
+                        break;
+
+                    case "boolean":
+                        $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
+                        break;
+
+                    default:
+                        $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
+                }
+            }
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            $success = $stmt->execute();
+            return $success;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function delete(string $table, int $id)
+    {
+        try {
+
+            $stmt = $this->db_database_connect->prepare("DELETE FROM {$table} WHERE  id =:id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt;
+
+        } catch (PDOException $e) {
+
+            echo "Error: " . $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function find(string $table, array $columns, array $inputSearch)
+    {
+        $columns = implode(",", $columns);
+        $placeSearchCondition = implode("AND", array_map(function ($key, $value) {
+            return "$key LIKE '%:$key%'";
+        }, array_keys($inputSearch), $inputSearch));
+        try {
+
+            $stmt = $this->db_database_connect->prepare("SELECT  {$columns} FROM {$table} WHERE LIKE {$placeSearchCondition}");
+
+            foreach ($inputSearch as $key => $value) {
+
+                $stmt->bindValue(":$key", $value, PDO::PARAM_STR);
+
+            }
+
+            $stmt->execute();
+
+            return $stmt;
+
+        } catch (PDOException $e) {
+
+            echo "Error: " . $e->getMessage();
+
+            return false;
+        }
+    }
+    public function innerJoinSelect(string $tables, array $COLUMNS, array $condition, array $where)
+    {
+        $tables = implode(" INNER JOIN ", $tables);
+        $condition = implode(" AND ", array_map(function ($key, $value) {
+            return "$key = $value";
+        }, array_keys($condition), $condition));
+        $where = implode(" AND ", array_map(function ($key, $value) {
+            return "$key=$value";
+        }, array_keys($where), $where));
+        $COLUMNS = implode(",", $COLUMNS);
+
+        $stmt = $this->db_database_connect->prepare("SELECT {$COLUMNS}  FROM {$tables} ON {$condition} WHERE  {$where}");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    }
+
+}
