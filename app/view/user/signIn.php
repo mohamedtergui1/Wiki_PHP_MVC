@@ -48,23 +48,31 @@
                     <p class="text-center mb-4">Returning to our vibrant community is a joy! Sign in to your account to resume your journey through a world of shared knowledge 
                         and collaboration. Whether you're here to explore, contribute, or connect, your presence enhances the collective experience. </p>
                     <div class="wow fadeIn" data-wow-delay="0.3s">
-                        <form>
+                    <div id="alert" class=" alert alert-success" role="alert">
+                        
+                    </div>
+                        <form  id="form" >
                             <div class="row g-3">
                                 
                                 <div class="col-md-12">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="password" class="form-control" id="subject" placeholder="Subject">
-                                        <label for="message">Message</label>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Subject">
+                                        <label for="message">Passsword</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Sign In</button>
+                                    <button class="btn btn-primary w-100 py-3" type="submit">
+                                       <span id="signIn" > Sign In</span>
+                                    <div id="spiner" class=" spinner-border text-light" role="status">
+
+                                                            </div>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -74,4 +82,6 @@
         </div>
     </div>
     <!-- Contact End -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="<?= APP_URL ?>/public/asset/js/signin.js"></script> 
         

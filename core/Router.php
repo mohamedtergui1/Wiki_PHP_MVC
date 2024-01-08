@@ -8,8 +8,17 @@ class Router
     private $controller = 'App\Controller\HomeController';
     private $method = 'index';
     private $params = [];
+    
+    private static $instance;
 
-    public function __construct()
+    public static function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+    private function __construct()
     {
         $this->routes();
     }
@@ -53,7 +62,9 @@ class Router
 
 
         if (isset($uri[2])) {
+           
             $this->params = array_values($uri);
+        
         }
 
         call_user_func_array([$this->controller, $this->method], $this->params);
@@ -65,4 +76,6 @@ class Router
         call_user_func_array([$this->controller, $this->method], $this->params);
         die;
     }
+    
+   
 }

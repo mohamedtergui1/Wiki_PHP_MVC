@@ -8,12 +8,19 @@ use App\DataBase\DataBase;
 class Orm
 {
     private $db_database_connect;
-
-    public function __construct()
+    private static $instance;
+    private function __construct()
     {
-        $this->db_database_connect = (new DataBase())->getPdo();
+        $this->db_database_connect =  DataBase::getInstance()->getPdo();;
     }
-    public function selectAll(string $table, int $id = null)
+    public static function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+    public function selectAll(string $table, int $id = null )
     {
 
         if ($id !== null) {
@@ -40,6 +47,41 @@ class Orm
             return false;
         }
     }
+    public function selectWhereColumns(string $table, array $where )
+{
+    try {
+        $placeWhere = implode(" AND ", array_map(function ($k, $v) {
+            return "$k = :$k";
+        }, array_keys($where), $where));
+
+        $stmt = $this->db_database_connect->prepare("SELECT * FROM {$table} WHERE {$placeWhere}");
+
+        foreach ($where as $key => $val) {
+            $type = gettype($val);
+            switch ($type) {
+                case "integer":
+                    $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
+                    break;
+
+                case "boolean":
+                    $stmt->bindValue(":$key", $val, PDO::PARAM_BOOL);
+                    break;
+
+                default:
+                    $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
+            }
+        }
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_OBJ);
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+        return false;
+    }
+}
+
 
     public function insert(string $table, array $data)
     {
@@ -50,11 +92,10 @@ class Orm
             $stmt = $this->db_database_connect->prepare("INSERT INTO {$table} ({$columnNames}) VALUES ({$placeValues})");
 
             foreach ($data as $key => $val) {
-                echo $val . "  =  " . gettype($val) . "<br>";
+                
                 $type = gettype($val);
                 switch ($type) {
                     case "integer":
-                        $val+=0;
                         $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
                         break;
 
@@ -86,7 +127,7 @@ class Orm
             $stmt = $this->db_database_connect->prepare("UPDATE {$table} SET {$placeColumnsValues} WHERE id = :id");
 
             foreach ($data as $key => $val) {
-                echo $val . "  =  " . gettype($val) . "<br>";
+                
                 $type = gettype($val);
                 switch ($type) {
                     case "integer":
@@ -99,6 +140,7 @@ class Orm
                         break;
 
                     default:
+                        $val = $this->protectXSS($val);
                         $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
                 }
             }
@@ -172,5 +214,21 @@ class Orm
         return $stmt->fetchAll(PDO::FETCH_OBJ);
 
     }
+
+    function protectXSS($input) {
+        
+        $input = trim($input);
+        
+        
+        $input = addslashes($input);
+
+        $input = trim($input);
+        
+        
+        $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    
+        return $input;
+    }
+    
 
 }

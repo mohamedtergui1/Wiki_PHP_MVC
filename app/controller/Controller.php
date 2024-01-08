@@ -11,4 +11,6 @@ class Controller
         include '../app/view/include/layout.php';
 
     }
+   
+ 
 }
