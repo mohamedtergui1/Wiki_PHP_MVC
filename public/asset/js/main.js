@@ -47,19 +47,38 @@
     });
 
 
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        items: 1,
-        autoplay: true,
-        smartSpeed: 1000,
-        dots: true,
-        loop: true,
-        nav: true,
-        navText : [
-            '<i class="bi bi-chevron-left"></i>',
-            '<i class="bi bi-chevron-right"></i>'
-        ]
+    // // Testimonials carousel
+    // $(".testimonial-carousel").owlCarousel({
+    //     items: 1,
+    //     autoplay: true,
+    //     smartSpeed: 1000,
+    //     dots: true,
+    //     loop: true,
+    //     nav: true,
+    //     navText : [
+    //         '<i class="bi bi-chevron-left"></i>',
+    //         '<i class="bi bi-chevron-right"></i>'
+    //     ]
+    // });
+ 
+    $("#logOut").click(() => {
+        const logout = "logout";
+        $.ajax({
+            type: "POST", // Changed to POST
+            url: "http://localhost/Wiki_PHP_MVC/signin/logout",
+            data: { logout: logout, method: "POST" }, // Specify the method as POST
+            success: function (response) {
+                if (response === "1") {
+                    window.location.href = "http://localhost/Wiki_PHP_MVC/signin";
+                }
+            },
+            error: function (error) {
+                console.error("Error during logout:", error);
+            }
+        });
     });
+
     
 })(jQuery);
+
 

@@ -25,7 +25,7 @@ class Router
 
     public function routes()
     {
-        session_start();
+       
         $uri = $_GET['uri'] ?? '';
         $uri = explode('/', trim(strtolower($uri), '/'));
 

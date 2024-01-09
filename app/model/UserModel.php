@@ -22,5 +22,8 @@ class UserModel extends Model
   {
     return $this->orm->selectWhereColumns("user", ["email" => $email]);
   }
+  function selectUser($id=null){
+    return $this->orm->selectAll("user", $id );
+  }
 
 }

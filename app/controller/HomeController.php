@@ -6,7 +6,7 @@ class HomeController extends Controller
 {   
     function index()
     {
-        $this->render("user", "home", "WiKi");
+        $this->render("user", "home", "Wi.Ki");
     }
 
 }
