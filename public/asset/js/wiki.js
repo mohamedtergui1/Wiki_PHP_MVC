@@ -20,7 +20,7 @@ $(document).ready(function () {
                     </span>
                 `);
             });
-            
+
             $(element).hide();
             console.log(tags);
         });
@@ -55,8 +55,9 @@ $(document).ready(function () {
 
                 if (response === "1") {
                     
-
-                    swal("your Wiki addedd withd succcess ", "You clicked the button!", "success")
+                    $("#alert").html("added successful! " ).addClass("alert-success").removeClass("alert-danger").show();
+                    
+                    swal("your Wiki added successful ", "You clicked the button!", "success")
                     // setTimeout(() => {
                     //     window.location.href = "http://localhost/Wiki_PHP_MVC/";
                     // }, 400);

@@ -1,5 +1,5 @@
 <?php
-   namespace App\Hepler;
+   namespace App\Helper;
 
    class Helper{
     public static function validateString($input)

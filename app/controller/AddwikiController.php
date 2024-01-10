@@ -4,7 +4,7 @@
   use App\Model\TagModel;
   use App\Model\WikiModel;
   use App\Model\WikiTagModel;
-  use App\Hepler\Helper;
+  use App\Helper\Helper;
   class AddwikiController extends Controller{
       private $category ;
       private $tag ;
@@ -39,7 +39,7 @@
                     foreach($tags as $t ){
                           $this->wikiTag->insert(["wikiID" => $id_wiki, "tagID" => $t]);
                     }
-                    echo "inserted success";
+                    echo "1";
                }else echo "not fount last id inserdet";
           } else echo " error insert wiki";
            
@@ -49,14 +49,14 @@
     }
      
     function validate(array $data){
-         
-          if(Helper::validateName($data["title"])) return "you title npt valide";
-               
-          else if(strlen(trim($data['title']))<4) return "yout title so short";
+          if(strlen(trim($data['title']))<4) return "yout title so short";
+          else if (strlen(trim($data['content']))<30) return "your content is short enter olud then 30 char"; 
+                
+          else if(Helper::validateName($data["title"])) return "you title npt valide";
 
           else if(Helper::validateString($data["content"])) return "your wiki must be text";
-
-          else if (strlen(trim($data['content']))) return "your content is short enter olud then 30 char"; 
+          else if(empty($data["categoryID"]))  return "chose a category please";
+          
 
           else return "1";
           
