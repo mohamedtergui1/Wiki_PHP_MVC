@@ -5,22 +5,22 @@ $(document).ready(function () {
 
     var tags = [];
 
-    $(".tags").each(( element) => {
-        $(element).click(() => {
+    $(".tags").each(function (index, element) {
+        $(element).click(function () {
             var obj = {};
             obj["id"] = $(element).val();
             obj["name"] = $(element).text();
             tags.push(obj);
-    
+
             $("#tagsPlace").html("");
-            tags.forEach((tag) => {
+            tags.forEach(function (tag) {
                 $("#tagsPlace").append(`
                     <span data-id="${tag.id}" class="btn btn-secondary m-1 py-3 tagSelected">
                         ${tag.name}
                     </span>
                 `);
             });
-    
+            
             $(element).hide();
             console.log(tags);
         });
