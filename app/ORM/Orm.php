@@ -92,7 +92,9 @@ class Orm
             $stmt = $this->db_database_connect->prepare("INSERT INTO {$table} ({$columnNames}) VALUES ({$placeValues})");
 
             foreach ($data as $key => $val) {
-                
+                if($this->validateNumber($val)){
+                    $val+=0;
+                }
                 $type = gettype($val);
                 switch ($type) {
                     case "integer":
@@ -104,7 +106,8 @@ class Orm
                         break;
 
                     default:
-                        $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
+                         
+                        $stmt->bindValue(":$key", $this->protectXSS($val), PDO::PARAM_STR);
                 }
             }
 
@@ -127,7 +130,9 @@ class Orm
             $stmt = $this->db_database_connect->prepare("UPDATE {$table} SET {$placeColumnsValues} WHERE id = :id");
 
             foreach ($data as $key => $val) {
-                
+                if($this->validateNumber($val)){
+                    $val+=0;
+                }
                 $type = gettype($val);
                 switch ($type) {
                     case "integer":
@@ -140,8 +145,8 @@ class Orm
                         break;
 
                     default:
-                        $val = $this->protectXSS($val);
-                        $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
+                       
+                        $stmt->bindValue(":$key", $this->protectXSS($val), PDO::PARAM_STR);
                 }
             }
             $stmt->bindValue(":id", $id, PDO::PARAM_INT);
@@ -170,6 +175,9 @@ class Orm
             return false;
         }
     }
+     function lastId(){
+        return $this->db_database_connect->query("SELECT LAST_INSERT_ID() AS id")->fetch(PDO::FETCH_OBJ)->id;
+     }
 
     public function find(string $table, array $columns, array $inputSearch)
     {
@@ -229,5 +237,9 @@ class Orm
         return $input;
     }
     
+    function validateNumber($input) {
+        $pattern = '/^[-+]?(\d+(\.\d*)?|\.\d+)$/u';
+        return preg_match($pattern, $input) === 1;
+    }
 
 }

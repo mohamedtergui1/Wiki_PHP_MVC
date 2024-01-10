@@ -14,16 +14,17 @@ class Controller
     private $middleware ;
 
     public function __construct()
-    {   
-        $this->middleware = Middleware::getInstance();
-        $this->typeUser =  $this->middleware ->middleWare();
+    {    
+      
+        $this->middleware = Middleware::getInstance(); 
+        $this->typeUser =  $this->middleware ->getUserType();
         
         
-        $this->idFromSession =  $this->middleware ->getIdFromSession();
+        $this->idFromSession =  $this->middleware ->getUserId();
 
         
         
-        // $this->middleware ->closeSession();
+        $this->middleware ->closeSession();
     }
 
     public function render(string $nameFolder = "404", string $nameFile = "404", $title = "Error 404", array $data = null , string $layout = "layout")
@@ -33,8 +34,8 @@ class Controller
        
         $typeUser = $this->typeUser;
         $idFromSession = $this->idFromSession;
-        
-        var_dump($this->idFromSession);
+       
+       
         if ($idFromSession) {
             $infoUser = UserModel::getInstance()->selectUser($idFromSession);
         }

@@ -8,5 +8,7 @@
     function __construct(){
         $this->orm = Orm::getInstance();
     }
-
+    function lastId(){
+      return $this->orm->lastId();
+    }
   }

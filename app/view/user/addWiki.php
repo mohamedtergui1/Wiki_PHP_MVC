@@ -55,7 +55,7 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="title" placeholder="Your Name">
+                                        <input type="text" class="form-control" name="title" id="title" placeholder="Your Name">
                                         <label for="name">title</label>
                                     </div>
                                 </div>
@@ -82,8 +82,12 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                <div id="tagsPlace" class="d-flex flex-wrap" ></div>
-                                <span  class="btn btn-success mb-3 py-3">
+                                <div id="tagsPlace" class="d-flex flex-wrap" >
+
+                               
+
+                                </div>
+                                <span  class="btn btn-success mt-3 mb-3 py-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                                     Add Tags
                                 </span>
                                 <button class="btn btn-primary w-100 py-3" type="submit"><span></span>
@@ -101,21 +105,60 @@
         </div>
     </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php 
+             
+              $tag = $data["tag"];
+
+              foreach($tag as $t):
+
+        ?>
+    <button value="<?=$t->id?>"  class="btn btn-success mb-3 py-3 tags "  >
+    <?=$t->tag?>
+                                </button>
+        <?php 
+         
+              endforeach;
+         ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     
 <!-- Place the first <script> tag in your HTML's <head> -->
 <script src="https://cdn.tiny.cloud/1/8bbf5ux15rmt3choi30m1dz7v2m6imkwwv77qovmswf0mq5z/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
-<!-- <script>
+
+<script>
+    
   tinymce.init({
     selector: 'textarea',
     plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
   });
-</script> -->
+</script>
 
 
     <!-- Contact End -->
         
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="<?= APP_URL ?>/public/asset/js/wiki.js"></script>
+ 
+
+
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">

@@ -1,51 +1,73 @@
 $(document).ready(function () {
+   
     $("#alert").hide();
     $("#spiner").hide();
 
- var tag = {
-       idtag : 2
- }
+    var tags = [];
+
+    $(".tags").each(( element) => {
+        $(element).click(() => {
+            var obj = {};
+            obj["id"] = $(element).val();
+            obj["name"] = $(element).text();
+            tags.push(obj);
+    
+            $("#tagsPlace").html("");
+            tags.forEach((tag) => {
+                $("#tagsPlace").append(`
+                    <span data-id="${tag.id}" class="btn btn-secondary m-1 py-3 tagSelected">
+                        ${tag.name}
+                    </span>
+                `);
+            });
+    
+            $(element).hide();
+            console.log(tags);
+        });
+    });
+    
+    
+    
+    
+   
     $("#form").on('submit', function (e) {
         e.preventDefault();
         $("#spiner").show();
         $("#signIn").hide();
-    
-        var formData = new FormData(this);
-       
         
-     
-    
+        var formData = new FormData(this);
+        console.log(tags)
+        tags.forEach(tag => {
+            formData.append("tagId[]", tag.id);
+        });
+
         $.ajax({
             type: "POST",
             url: "http://localhost/Wiki_PHP_MVC/addwiki/insert",
             data: formData,
-            contentType: false, 
-            processData: false, 
+            contentType: false,
+            processData: false,
             success: function (response) {
-               
                 setTimeout(() => {
                     $("#spiner").hide();
                     $("#signIn").show();
                 }, 400);
-    
-              
+
                 if (response === "1") {
-                    $("#alert").html("added successful!" ).addClass("alert-success").removeClass("alert-danger").show();
-                    setTimeout(() => {
+                    
 
-                        window.location.href = "http://localhost/Wiki_PHP_MVC/";
-
-                    }, 400);
+                    swal("your Wiki addedd withd succcess ", "You clicked the button!", "success")
+                    // setTimeout(() => {
+                    //     window.location.href = "http://localhost/Wiki_PHP_MVC/";
+                    // }, 400);
                 } else {
                     $("#alert").html(response).removeClass("alert-success").addClass("alert-danger").show();
                 }
             },
             error: function (error) {
                 console.log(error);
-               
                 $("#alert").html("Error during registration").removeClass("alert-success").addClass("alert-danger").show();
             }
         });
     });
-    
 });

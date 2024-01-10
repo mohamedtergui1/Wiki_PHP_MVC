@@ -26,7 +26,6 @@ class SigninController extends Controller
 
                if ($res->roleID = 2) {
                   $_SESSION["authorID"] = $res->id;
-
                } else if ($res->roleID = 1) {
                   $_SESSION["adminID"] = $res->id;
 
@@ -49,6 +48,7 @@ class SigninController extends Controller
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
          if ($_POST['logout'] ) {
+           
             session_destroy();
             echo 1;
          }

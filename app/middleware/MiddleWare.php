@@ -3,44 +3,63 @@
 namespace App\Middleware;
 
 class Middleware {
-    private $typeUser ;
-    private $id ;
+    private $userType;
+    private $userId;
     private static $instance;
 
     private function __construct() {
-       session_start();
-       $this->typeUser = $this->middleWare();
-       $this->id = $this->getIdFromSession();
+        
+        $this->startSession();
+        $this->initializeUser();
     }
 
-     static function getInstance() {
+    public static function getInstance() {
         if (!self::$instance) {
             self::$instance = new self();
         }
         return self::$instance;
     }
 
-     function middleWare() {
+    private function startSession() {
+        if (session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+    }
+
+    private function initializeUser() {
+        $this->userType = $this->fetchUserType();
+        $this->userId = $this->fetchUserId();
+    }
+
+    private function fetchUserType() {
         if (isset($_SESSION["authorID"])) {
-            $this->typeUser = "author";
+            return "author";
         } else if (isset($_SESSION["adminID"])) {
-            $this->typeUser = "admin";
-        } 
+            return "admin";
+        }
         
-        return $this->typeUser;
+        return null;
     }
-     function getIdFromSession(){
+
+    private function fetchUserId() {
         if (isset($_SESSION["authorID"])) {
-            $this->id = $_SESSION["authorID"];
+            return $_SESSION["authorID"];
         } else if (isset($_SESSION["adminID"])) {
-            $this->id = $_SESSION["adminID"];
-        } 
-        return $this->id;
+            return $_SESSION["adminID"];
+        }
+        
+        return null;
     }
 
-
-    
-     function closeSession() {
+    public function closeSession() {
         session_write_close();
+    }
+
+    public function getUserType() {
+        return $this->userType;
+    }
+
+    public function getUserId() {
+        return $this->userId;
     }
 }
