@@ -20,8 +20,13 @@ class SignupController extends Controller
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $data = $_POST;
+
+            if(isset($data["image"])) unset($data["image"]);
+           
             $image = ["image" => $_FILES["image"]["name"]];
-            $data += $image;
+            if(!empty($image["image"])) $data += $image;
+           
+            
             $data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
 
 
@@ -32,17 +37,15 @@ class SignupController extends Controller
             if ($this->validate($data) == "1") {
  
                 if ($this->user->insertUser($data)) {
-                    if (!empty($data["image"])) {
+                    
                         $image_tmp = $_FILES["image"]["tmp_name"];
-                        $this->move_upload($image_tmp, $data["image"]);
+                        $this->move_upload($image_tmp,$_FILES["image"]["name"]);
 
                         $_SESSION["authorID"] = $this->user->selectByEmail($data["email"])->id;
                         echo 1;
                         exit;
 
 
-                    } else
-                        echo 0;
 
                 } else
                     echo 0;

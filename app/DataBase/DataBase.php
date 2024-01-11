@@ -39,4 +39,19 @@ class DataBase
     {
         $this->pdo = null;
     }
+    public function logError(PDOException $e)
+    {
+        $logFilePath = dirname(__DIR__ . '../') . '\logs\error.log';
+        $errorMessage = "[" . date('Y-m-d H:i:s') . "] " . $e->getMessage() . "\n";
+        file_put_contents($logFilePath, $errorMessage, FILE_APPEND);
+    }
+
+    public function logQuery($query)
+    {
+        $logFilePath = dirname(__DIR__ . '../') . '\logs\query.log';
+
+        $logMessage = "[" . date('Y-m-d H:i:s') . "] " .  $query . "\n";
+        file_put_contents($logFilePath, $logMessage, FILE_APPEND);
+    }
 }
+

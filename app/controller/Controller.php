@@ -7,7 +7,7 @@ use App\Model\UserModel;
 
 class Controller
 {   
-    
+    protected $admin;
     protected $typeUser;
     protected $idFromSession;
 
@@ -22,7 +22,7 @@ class Controller
         
         $this->idFromSession =  $this->middleware ->getUserId();
 
-        
+        $this->typeUser == "admin" ? $this->admin = true : $this->admin = false;
         
         $this->middleware ->closeSession();
     }
@@ -30,12 +30,12 @@ class Controller
     public function render(string $nameFolder = "404", string $nameFile = "404", $title = "Error 404", array $data = null , string $layout = "layout")
     {   
         
-       
+        
        
         $typeUser = $this->typeUser;
         $idFromSession = $this->idFromSession;
-       
-       
+        $admin = $this->admin;
+      
         if ($idFromSession) {
             $infoUser = UserModel::getInstance()->selectUser($idFromSession);
         }

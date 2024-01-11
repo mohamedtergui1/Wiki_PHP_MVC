@@ -206,7 +206,7 @@ class Orm
             return false;
         }
     }
-    public function innerJoinSelect(string $tables, array $COLUMNS, array $condition, array $where)
+    public function innerJoinSelect(array $tables, array $COLUMNS, array $condition, array $where = ["1"=>"1"])
     {
         $tables = implode(" INNER JOIN ", $tables);
         $condition = implode(" AND ", array_map(function ($key, $value) {
@@ -216,10 +216,12 @@ class Orm
             return "$key=$value";
         }, array_keys($where), $where));
         $COLUMNS = implode(",", $COLUMNS);
-
-        $stmt = $this->db_database_connect->prepare("SELECT {$COLUMNS}  FROM {$tables} ON {$condition} WHERE  {$where}");
+        
+        $sql = "SELECT {$COLUMNS}  FROM {$tables} ON {$condition} WHERE  {$where}" ;
+        DataBase::getInstance()->logQuery($sql); 
+        $stmt = $this->db_database_connect->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);  
 
     }
 

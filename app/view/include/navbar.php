@@ -32,14 +32,15 @@
                          <div class="dropdown">
   <a class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       <img style="height:2.5rem;"  class="rounded " src="<?=APP_URL . "public/asset/usersImage/" . $infoUser->image?>" alt="profile">
+      
      
   </a>
 
   <ul class="dropdown-menu" >
     <li class="dropdown-item cursor-pointer ">profile</li>
     <?php
-     if($typeUser == "Admin"){ ?>
-    <li class="dropdown-item cursor-pointer "> Another action</li>
+     if($admin){ ?>
+    <li class="dropdown-item cursor-pointer "><a href="<?=APP_URL?>dashboard" >Dashboard</a></li>
     <?php } ?>
     <li  class="dropdown-item cursor-pointer "> <a href="<?=APP_URL?>addwiki" > Add  Wiki </a></li>
     <li id="logOut" class="dropdown-item cursor-pointer "> Log Out</li>

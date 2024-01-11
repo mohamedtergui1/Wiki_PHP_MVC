@@ -24,9 +24,9 @@ class SigninController extends Controller
             if (password_verify($_POST["password"], $res->password)) {
 
 
-               if ($res->roleID = 2) {
+               if ($res->roleID == 2) {
                   $_SESSION["authorID"] = $res->id;
-               } else if ($res->roleID = 1) {
+               } else if ($res->roleID ==1) {
                   $_SESSION["adminID"] = $res->id;
 
                } else {

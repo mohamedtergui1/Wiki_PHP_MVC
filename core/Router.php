@@ -25,10 +25,11 @@ class Router
 
     public function routes()
     {
-       
-        $uri = $_GET['uri'] ?? '';
+        
+        $uri = $_SERVER["REQUEST_URI"];
+        $uri = parse_url($uri)["path"];  
         $uri = explode('/', trim(strtolower($uri), '/'));
-
+        $a=array_splice($uri,0,1);
         if (!empty($uri[0])) {
 
             $controller = $uri[0] . 'Controller';
