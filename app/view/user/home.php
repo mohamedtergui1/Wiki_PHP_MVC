@@ -14,12 +14,78 @@
                     class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">Contact Us</a>
             </div>
             <div class="col-lg-6 align-self-end text-center text-lg-end">
-                <img class="img-fluid" src="<?= APP_URL ?>public/asset/img/hero.jpg" alt="">
+                <img class="img-fluid" src="<?= APP_URL ?>public/asset/img/Wikipedia-Logo-PNG-Transparent.png" alt="">
             </div>
         </div>
     </div>
 </div>
 <!-- Hero End -->
+
+<div class="container">
+
+    <div  style="height:5rem;" class="row height d-flex justify-content-center align-items-center">
+                     <div  class="col-md-2" >
+                        <select id="filter" class="form-select" aria-label="Default select example">
+                           <option value="title">title</option>
+                           <option value="category">category</option>
+                           <option value="tag">tag</option>
+                        </select>
+                    </div>
+            <div  class="col-md-2" >
+                        <select id="categoryTag"  class="form-select " aria-label="Default select example">
+                        
+                        </select>
+                    </div>
+        <div class="col-md-6">
+
+            <div class="search">
+                <i class="fa fa-search"></i>
+                <input id="search" type="text" class="form-control" placeholder="Have a question? Ask Now">
+                <button class="btn btn-primary">Search</button>
+            </div>
+
+        </div>
+       
+    </div>
+</div>
+
+
+
+<div class="container-fluid bg-light py-5">
+    <div class="container py-5">
+        
+        <div id="ResultPlace" class="row g-4">
+        <?php
+            foreach ($data["wiki"] as $i => $w):
+                if ($w->wikiImage == null)
+                    continue;
+                ?>
+                <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                    <div class="case-item position-relative overflow-hidden rounded mb-2">
+                        <img class="img-fluid" src="<?= APP_URL ?>public/asset/wikisImage/<?= $w->wikiImage ?>" alt="">
+                        <a class="case-overlay text-decoration-none" href="<?= APP_URL ?>wiki/veiw/<?= $w->id ?>">
+                            <small><?= $w->category ?></small>
+                            <h5 class="lh-base text-white mb-3"><?= $w->title ?>
+                            </h5>
+                            <span class="btn btn-square btn-primary"><i class="fa fa-arrow-right"></i></span>
+                        </a>
+
+                    </div>
+                    <div class="d-flex align-items-center  ">
+                        <span class="rounded  m-2 " style="height:3rem; width:3rem; z-index: 100; overflow:hidden;  ">
+                            <img style="height:3rem; width:3rem; z-index: 100;"
+                                src="<?= APP_URL ?>public/asset/usersImage/<?= $w->authorImage ?>" alt="author">
+
+                        </span>
+                        <h5><?= $w->username ?></h5>
+                    </div>
+                </div>
+            <?php
+            endforeach;
+            ?>
+        </div>
+    </div>
+</div>
 
 
 <!-- Full Screen Search Start -->
@@ -38,6 +104,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 <!-- Full Screen Search End -->
@@ -52,7 +119,7 @@
         <div class="row g-5 align-items-center">
             <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
                 <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Our Categories</div>
-                <h1 class="mb-4">Our Excellent AI Solutions for Your Business</h1>
+                <h1 class="mb-4">Our Excellent Categories for You</h1>
                 <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
                     amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus
                     clita duo justo et tempor eirmod magna dolore erat amet</p>
@@ -62,67 +129,77 @@
                 <div class="row g-4">
                     <div class="col-md-6">
                         <div class="row g-4">
-               
-                        <?php 
-                           $category =  $data["category"];
-                          foreach($category as $i=>$cate):
-                            if($i>1) break;
-                         ?>
+
+                            <?php
+                            $category = $data["category"];
+                            foreach ($category as $i => $cate):
+                                if ($i > 1)
+                                    break;
+                                ?>
 
 
-                            <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="service-item d-flex flex-column justify-content-center text-center rounded">
-                                    <div class="service-icon btn-square">
-                                        <i class="fa fa-robot fa-2x"></i>
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
+                                    <div class="service-item d-flex flex-column justify-content-center text-center rounded">
+                                        <div class="service-icon btn-square">
+                                            <i class="fa fa-robot fa-2x"></i>
+                                        </div>
+                                        <h5 class="mb-3">
+                                            <?= $cate->category ?>
+                                        </h5>
+                                        <p>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet
+                                            diam sed stet lorem.</p>
+                                        <a class="btn px-3 mt-auto mx-auto" href="<?= $cate->id ?>">Show Wikis in this
+                                            category</a>
+
                                     </div>
-                                    <h5 class="mb-3"><?= $cate->category  ?></h5>
-                                    <p>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet
-                                        diam sed stet lorem.</p>
-                                    <a class="btn px-3 mt-auto mx-auto" href="<?= $cate->id  ?>">Show Wikis in this category</a>
                                 </div>
-                            </div>
 
 
-                            <?php 
-                              endforeach;
-                             
+                            <?php
+                            endforeach;
+
                             ?>
-                          
+
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="row g-4">
-               
-                        <?php 
-                           
-                          foreach($category as $i=>$cate):
-                            if($i<2) continue;
-                            if($i>3) break;
-                         ?>
+
+                            <?php
+
+                            foreach ($category as $i => $cate):
+                                if ($i < 2)
+                                    continue;
+                                if ($i > 3)
+                                    break;
+                                ?>
 
 
-                            <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="service-item d-flex flex-column justify-content-center text-center rounded">
-                                    <div class="service-icon btn-square">
-                                        <i class="fa fa-robot fa-2x"></i>
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
+                                    <div class="service-item d-flex flex-column justify-content-center text-center rounded">
+                                        <div class="service-icon btn-square">
+                                            <i class="fa fa-robot fa-2x"></i>
+                                        </div>
+                                        <h5 class="mb-3">
+                                            <?= $cate->category ?>
+                                        </h5>
+                                        <p>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet
+                                            diam sed stet lorem.</p>
+                                        <a class="btn px-3 mt-auto mx-auto" href="<?= $cate->id ?>">Show Wikis in this
+                                            category</a>
                                     </div>
-                                    <h5 class="mb-3"><?= $cate->category  ?></h5>
-                                    <p>Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet
-                                        diam sed stet lorem.</p>
-                                    <a class="btn px-3 mt-auto mx-auto" href="<?= $cate->id  ?>">Show Wikis in this category</a>
                                 </div>
-                            </div>
 
 
-                            <?php 
-                              endforeach;
-                             
+                            <?php
+                            endforeach;
+
                             ?>
-                          
+
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -134,49 +211,7 @@
 
 
 <!-- Case Start -->
-<div class="container-fluid bg-light py-5">
-    <div class="container py-5">
-        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 500px;">
-            <div class="btn btn-sm border rounded-pill text-primary px-3 mb-3">Case Study</div>
-            <h1 class="mb-4">Explore Our Recent AI Case Studies</h1>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                <div class="case-item position-relative overflow-hidden rounded mb-2">
-                    <img class="img-fluid" src="<?= APP_URL ?>public/asset/img/project-1.jpg" alt="">
-                    <a class="case-overlay text-decoration-none" href="">
-                        <small>Robotic Automation</small>
-                        <h5 class="lh-base text-white mb-3">Lorem elitr magna stet eirmod labore amet labore clita
-                        </h5>
-                        <span class="btn btn-square btn-primary"><i class="fa fa-arrow-right"></i></span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                <div class="case-item position-relative overflow-hidden rounded mb-2">
-                    <img class="img-fluid" src="<?= APP_URL ?>public/asset/img/project-2.jpg" alt="">
-                    <a class="case-overlay text-decoration-none" href="">
-                        <small>Machine learning</small>
-                        <h5 class="lh-base text-white mb-3">Lorem elitr magna stet eirmod labore amet labore clita
-                        </h5>
-                        <span class="btn btn-square btn-primary"><i class="fa fa-arrow-right"></i></span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.7s">
-                <div class="case-item position-relative overflow-hidden rounded mb-2">
-                    <img class="img-fluid" src="<?= APP_URL ?>public/asset/img/project-3.jpg" alt="">
-                    <a class="case-overlay text-decoration-none" href="">
-                        <small>Predictive Analysis</small>
-                        <h5 class="lh-base text-white mb-3">Lorem elitr magna stet eirmod labore amet labore clita
-                        </h5>
-                        <span class="btn btn-square btn-primary"><i class="fa fa-arrow-right"></i></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <!-- Case End -->
 
 
@@ -200,69 +235,76 @@
                     <div class="col-md-6">
                         <div class="row g-4">
 
-                        <?php
+                            <?php
                             $user = $data["author"];
-                            $a=0;
-                            foreach($user as $i => $u ):
-                                if($u->image) $a++;
-                                else continue;
+                            $a = 0;
+                            foreach ($user as $i => $u):
+                                if ($u->image)
+                                    $a++;
+                                else
+                                    continue;
 
-                                if($a>2)  break;
-                          ?>
-                            <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="team-item bg-white text-center rounded p-4 pt-0">
-                                    <img style=" height: 18rem;     width: 18rem;" class="img-fluid rounded-circle p-4"
-                                        src="<?= APP_URL ?>public/asset/usersImage/<?=$u->image?>" alt="">
-                                    <h5 class="mb-0"><?=$u->username?></h5>
-                                    <small>Founder & CEO</small>
-                                    <div class="d-flex justify-content-center mt-3">
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-instagram"></i></a>
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-linkedin-in"></i></a>
+                                if ($a > 2)
+                                    break;
+                                ?>
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
+                                    <div class="team-item bg-white text-center rounded p-4 pt-0">
+                                        <img style=" height: 18rem;     width: 18rem;" class="img-fluid rounded-circle p-4"
+                                            src="<?= APP_URL ?>public/asset/usersImage/<?= $u->image ?>" alt="">
+                                        <h5 class="mb-0"><?= $u->username ?></h5>
+                                        <small>Founder & CEO</small>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-facebook-f"></i></a>
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-twitter"></i></a>
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-instagram"></i></a>
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-linkedin-in"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <?php
+                                <?php
                             endforeach;
                             ?>
                         </div>
                     </div>
                     <div class="col-md-6 pt-md-4">
                         <div class="row g-4">
-                        <?php
+                            <?php
                             $user = $data["author"];
-                            $a=0;
-                            foreach($user as $i => $u ):
-                                if($u->image) $a++;
-                                else continue;
+                            $a = 0;
+                            foreach ($user as $i => $u):
+                                if ($u->image)
+                                    $a++;
+                                else
+                                    continue;
 
-                                if($a<3)  continue;
-                                if($a>4) break;
-                          ?>
-                            <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="team-item bg-white text-center rounded p-4 pt-0">
-                                    <img style=" height: 18rem;     width: 18rem;" class="img-fluid rounded-circle p-4"
-                                        src="<?= APP_URL ?>public/asset/usersImage/<?=$u->image?>" alt="">
-                                    <h5 class="mb-0"><?=$u->username?></h5>
-                                    <small>Founder & CEO</small>
-                                    <div class="d-flex justify-content-center mt-3">
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-instagram"></i></a>
-                                        <a class="btn btn-square btn-primary m-1" href=""><i
-                                                class="fab fa-linkedin-in"></i></a>
+                                if ($a < 3)
+                                    continue;
+                                if ($a > 4)
+                                    break;
+                                ?>
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
+                                    <div class="team-item bg-white text-center rounded p-4 pt-0">
+                                        <img style=" height: 18rem;     width: 18rem;" class="img-fluid rounded-circle p-4"
+                                            src="<?= APP_URL ?>public/asset/usersImage/<?= $u->image ?>" alt="">
+                                        <h5 class="mb-0"><?= $u->username ?></h5>
+                                        <small>Founder & CEO</small>
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-facebook-f"></i></a>
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-twitter"></i></a>
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-instagram"></i></a>
+                                            <a class="btn btn-square btn-primary m-1" href=""><i
+                                                    class="fab fa-linkedin-in"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <?php
+                                <?php
                             endforeach;
                             ?>
                         </div>
@@ -415,3 +457,32 @@
     </div>
 </div>
 <!-- FAQs Start -->
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#categoryTag").hide();
+        $("#filter").on('change', function () {
+           
+            var selectedValue = $(this).val().trim();
+            var filterSelect = $("#categoryTag");
+     
+            filterSelect.html("");
+
+            if (selectedValue === "title") {
+                filterSelect.hide(100);
+            } else if (selectedValue === "category") {
+                <?php foreach ($data["category"] as $cate): ?>
+                    filterSelect.append('<option value="<?=$cate->id?>"><?=$cate->category?></option>');
+                <?php endforeach; ?>
+                filterSelect.show(100);
+            } else if (selectedValue === "tag") {
+                <?php foreach ($data["tag"] as $tag): ?>
+                    filterSelect.append('<option value="<?=$tag->id?>"><?=$tag->tag?></option>');
+                <?php endforeach; ?>
+                filterSelect.show(100);
+            }
+        });
+    });
+</script>

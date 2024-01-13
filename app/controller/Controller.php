@@ -24,7 +24,7 @@ class Controller
 
         $this->typeUser == "admin" ? $this->admin = true : $this->admin = false;
         
-        $this->middleware ->closeSession();
+        // $this->middleware ->closeSession();
     }
 
     public function render(string $nameFolder = "404", string $nameFile = "404", $title = "Error 404", array $data = null , string $layout = "layout")

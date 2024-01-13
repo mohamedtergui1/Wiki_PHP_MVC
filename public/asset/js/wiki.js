@@ -36,6 +36,8 @@ $(document).ready(function () {
         $("#signIn").hide();
         
         var formData = new FormData(this);
+        var image = $("#image")[0].files[0];
+        formData.append("image", image);
         console.log(tags)
         tags.forEach(tag => {
             formData.append("tagId[]", tag.id);

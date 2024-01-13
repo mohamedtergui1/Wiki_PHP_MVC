@@ -82,6 +82,12 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
+                                <div class="col-6">
+                            <div class="form-floating">
+                                <input type="file" class="form-control" id="image" name="image" placeholder="Subject">
+                                <label for="message">Image</label>
+                            </div>
+                        </div>
                                 <div id="tagsPlace" class="d-flex flex-wrap" >
 
                                
@@ -91,7 +97,7 @@
                                     Add Tags
                                 </span>
                                 <button class="btn btn-primary w-100 py-3" type="submit"><span></span>
-                                    <span id="regester">Regester</span>
+                                    <span id="regester">ADD</span>
                                     <div id="spiner" class=" spinner-border text-light" role="status">
 
                                     </div>

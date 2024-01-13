@@ -15,4 +15,7 @@ class Model
   {
     return $this->orm->lastId();
   }
+  function selectCount(array $data){
+             return $this->orm->selectCount( $data);
+  }
 }

@@ -26,14 +26,23 @@
       }
       function insert(){
         if($_SERVER["REQUEST_METHOD"]=="POST"){
-          
+         
+          if(isset($_POST["image"])) unset($_POST["image"]);
+           
+          $image = ["image" => $_FILES["image"]["name"]];
+          if(!empty($image["image"])) $_POST += $image;
+         
          if($this->validate($_POST) == "1"){
-          if($_POST["tagId"]){
+          if(isset($_POST["tagId"])){
              $tags = $_POST["tagId"];
              unset($_POST["tagId"]);
-          }
+          }else $tags= [];
           $_POST += array("userID"=> $this->idFromSession);
           if($this->wiki->insertWiki($_POST)){
+               
+                $image_tmp = $_FILES["image"]["tmp_name"];
+               $this->move_upload($image_tmp,$_FILES["image"]["name"]);
+               
                $id_wiki = $this->wiki->lastId();
                if($id_wiki){
                     foreach($tags as $t ){
@@ -56,9 +65,21 @@
 
           else if(Helper::validateString($data["content"])) return "your wiki must be text";
           else if(empty($data["categoryID"]))  return "chose a category please";
-          
+          else if (isset($data["image"])) {
+            
+                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp' ];
+                if (!in_array($_FILES["image"]["type"], $allowedTypes)) 
+                   return "Your file  is not valid.<br>";
+                
+            else return "1";
+        }
 
           else return "1";
           
     }
+    function move_upload($file, string $fileName, string $path = './asset/wikisImage/')
+    {
+        return move_uploaded_file($file, $path . $fileName);
+    }
+   
   }

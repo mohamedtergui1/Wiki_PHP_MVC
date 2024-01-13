@@ -9,15 +9,15 @@ class CategoryModel extends Model
     return $this->orm->selectAll("category", $id);
   }
 
-  function insertWiki(array $data): bool
+  function insertCategory(array $data): bool
   {
     return $this->orm->insert("category", $data);
   }
-  function updateWiki(array $data, int $id)
+  function updateCategory(array $data, int $id)
   {
     return $this->orm->update("category", $data, $id);
   }
-  function deleteWiki(int $id)
+  function deleteCategory(int $id)
   {
     return $this->orm->delete("category", $id);
   }

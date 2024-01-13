@@ -40,7 +40,7 @@ class SignupController extends Controller
                     
                         $image_tmp = $_FILES["image"]["tmp_name"];
                         $this->move_upload($image_tmp,$_FILES["image"]["name"]);
-
+                        if(!isset($_POST["roleID"]))
                         $_SESSION["authorID"] = $this->user->selectByEmail($data["email"])->id;
                         echo 1;
                         exit;

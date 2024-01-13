@@ -31,13 +31,13 @@
                         <td><?= $wiki->title ?></td>
                         <td><?= $wiki->category ?></td>
                         <td><?= $wiki->username ?></td>
-                        <td>
+                        <td  class="<?= $wiki->status == "accepted" ? "text-success"  : "text-danger" ?>" >
                             <?php
                             if ($wiki->status) {
                                 echo $wiki->status; ?>
 
                             <?php } else { ?>
-                                <a href="<?= APP_URL ?>Wiki/changeStatus/<?= $wiki->id ?>/akcepted" style="margin-right: 5px;"
+                                <a href="<?= APP_URL ?>Wiki/changeStatus/<?= $wiki->id ?>/accepted" style="margin-right: 5px;"
                                     class="status delivered">approve</a><a
                                     href="<?= APP_URL ?>Wiki/changeStatus/<?= $wiki->id ?>/rejected" style="margin-left: 5px;"
                                     class="status return">reject</a>
@@ -73,3 +73,11 @@
 
 
 </div>
+
+<?php 
+               use App\Helper\SessionHelper; 
+               SessionHelper::success("success");
+               SessionHelper::danger("error");
+
+             ?>
+        

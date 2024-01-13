@@ -78,6 +78,62 @@
         });
     });
 
+    $("#search").on("input", () => {
+        const typesearch = $("#filter").val().trim();
+        const search = $("#search").val().trim();
+        console.log(typesearch);
+        var link ;
+        if(typesearch === "title")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbytitle";
+         else if(typesearch=="category")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbycategory";
+       else if(typesearch=="tag")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbycategory";
+       var  tagCategory ="null";
+        if (search !== "") {
+            $("#ResultPlace").html("");
+              
+            $.ajax({
+                type: "POST",
+                url: link,
+                data: { search: search, 
+                      tagCategory : tagCategory
+                },
+                dataType: "json",  
+                success: function (response) {
+                    response.forEach(res => {
+                        showDat(res);
+                    });
+                },
+                error: function (error) {
+                    console.error("Error:", error);
+                }
+            });
+        }
+    });
+    
+    
+    
+    function showDat(res) {
+        $("#ResultPlace").append(
+            `
+            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                <div class="case-item position-relative overflow-hidden rounded mb-2">
+                    <img class="img-fluid" src="http://localhost/Wiki_PHP_MVC/public/asset/wikisImage/${res.wikiImage}" alt="">
+                    <a class="case-overlay text-decoration-none" href="http://localhost/Wiki_PHP_MVC/wiki/veiw/${res.id}">
+                        <small>${res.category}</small>
+                        <h5 class="lh-base text-white mb-3">${res.title}</h5>
+                        <span class="btn btn-square btn-primary"><i class="fa fa-arrow-right"></i></span>
+                    </a>
+                </div>
+                <div class="d-flex align-items-center">
+                    <span class="rounded m-2" style="height:3rem; width:3rem; z-index: 100; overflow:hidden;">
+                        <img style="height:3rem; width:3rem; z-index: 100;" src="http://localhost/Wiki_PHP_MVC/public/asset/usersImage/${res.authorImage}" alt="author">
+                    </span>
+                    <h5>${res.username}</h5>
+                </div>
+            </div>
+            `
+        );
+    }
+    
     
 })(jQuery);
 

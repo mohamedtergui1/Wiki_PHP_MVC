@@ -179,7 +179,7 @@ class Orm
         return $this->db_database_connect->query("SELECT LAST_INSERT_ID() AS id")->fetch(PDO::FETCH_OBJ)->id;
      }
 
-    public function find(string $table, array $columns, array $inputSearch)
+    public function find(string $table, array $columns, array $inputSearch )
     {
         $columns = implode(",", $columns);
         $placeSearchCondition = implode("AND", array_map(function ($key, $value) {
@@ -206,15 +206,18 @@ class Orm
             return false;
         }
     }
-    public function innerJoinSelect(array $tables, array $COLUMNS, array $condition, array $where = ["1"=>"1"])
+    public function innerJoinSelect(array $tables, array $COLUMNS, array $condition, array $where = ["1"=>"1"], string $operatour = "=")
     {
-        $tables = implode(" INNER JOIN ", $tables);
+       
+        $tables = implode(" INNER JOIN ", $tables); 
         $condition = implode(" AND ", array_map(function ($key, $value) {
             return "$key = $value";
         }, array_keys($condition), $condition));
-        $where = implode(" AND ", array_map(function ($key, $value) {
-            return "$key=$value";
+        
+        $where = implode(" AND ", array_map(function ($key, $value) use ($operatour) {
+            return "$key $operatour $value";
         }, array_keys($where), $where));
+
         $COLUMNS = implode(",", $COLUMNS);
         
         $sql = "SELECT {$COLUMNS}  FROM {$tables} ON {$condition} WHERE  {$where}" ;
@@ -223,6 +226,16 @@ class Orm
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);  
 
+    }
+
+    function selectCount(array $tables){
+        $place = implode(" , ", array_map(function ($key, $value) {
+            return "(SELECT COUNT(*) FROM $value) AS $key";
+        }, array_keys($tables), $tables));
+
+        $sql = "SELECT $place";
+        $stmt = $this->db_database_connect->query($sql);
+        return $stmt->fetch(PDO::FETCH_OBJ);  
     }
 
     function protectXSS($input) {

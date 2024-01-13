@@ -10,15 +10,15 @@ class TagModel extends Model
       return $this->orm->selectAll("tag", $id);
    }
 
-   function insertWiki(array $data): bool
+   function insertTag(array $data): bool
    {
       return $this->orm->insert("tag", $data);
    }
-   function updateWiki(array $data, int $id)
+   function updateTag(array $data, int $id)
    {
       return $this->orm->update("tag", $data, $id);
    }
-   function deleteWiki(int $id)
+   function deleteTag(int $id)
    {
       return $this->orm->delete("tag", $id);
    }

@@ -13,7 +13,15 @@ class DashboardController extends Controller{
         // var_dump ($this->typeUser);
         // die;
         if($this->admin)
-        $this->render("admin","main","Dashboard",null,"layoutDashboard");
+        $this->render("admin","main","Dashboard",array ( (new UserModel)->selectCount(
+            [
+                'userCount' => 'user ',
+                'categoryCount' => 'category ',
+                'tagCount' => 'tag ',
+                'wikiCount' => 'wiki '
+            ]
+            ) )
+    ,"layoutDashboard");
       else header("Location:".APP_URL);
     }
     function manageUser (){

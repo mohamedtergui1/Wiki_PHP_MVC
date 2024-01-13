@@ -3,8 +3,12 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
+                        <?php  $data = $data[0];  
+                       
+                        
+                        ?>
+                        <div class="numbers"><?=$data->userCount?></div>
+                        <div class="cardName">authors</div>
                     </div>
 
                     <div class="iconBx">
@@ -14,8 +18,8 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
+                        <div class="numbers"><?=$data->tagCount?></div>
+                        <div class="cardName">tags</div>
                     </div>
 
                     <div class="iconBx">
@@ -25,8 +29,8 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments</div>
+                        <div class="numbers"><?=$data->wikiCount?></div>
+                        <div class="cardName">wikis</div>
                     </div>
 
                     <div class="iconBx">
@@ -36,8 +40,8 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers"><?=$data->categoryCount?></div>
+                        <div class="cardName">categories</div>
                     </div>
 
                     <div class="iconBx">
