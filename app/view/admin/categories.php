@@ -4,7 +4,19 @@
             <h2>Recent Categories</h2>
             <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn">Add category</button>
         </div>
-
+      
+            <form id="formEdit" method="post" class="row" action="<?=APP_URL?>category/updateCategory">
+                <div class="form-floating  col">
+                    <input id="edit_name" name="category" value="" type="text" class="form-control"  placeholder="Your Name">
+                    <input id="edit_id" name= "id" type="hidden" value="" >
+                    <label for="name">name</label>
+                </div>
+                <div class="form-floating  col">
+    
+                    <button type="submit" class="btn btn-primary">edit</button>
+                </div>
+            </form>
+           
         <table>
             <thead>
                 <tr>
@@ -20,7 +32,7 @@
                 foreach ($data as $cate):
                     ?>
                     <tr>
-                        <td><?= $cate->category ?></td>
+                        <td class="editname"><?= $cate->category ?></td>
                         <td><button value="<?= $cate->id ?>" style="margin-right: 5px;"
                                 class="status edit inProgress">Edit</button><a
                                 href="<?= APP_URL ?>category/deleteCategory/<?= $cate->id ?>" style="margin-left: 5px;"
@@ -77,3 +89,18 @@ SessionHelper::success("success");
 SessionHelper::danger("error");
 
 ?>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#formEdit").hide();
+        const name = $(".editname");
+        
+        $(".edit").each(function (i, e) { 
+            $(e).click(function () {
+                $("#formEdit").show(100);
+                $("#edit_id").val($(e).val());
+                $("#edit_name").val(name[i].textContent);
+            });
+        });
+    });
+</script>

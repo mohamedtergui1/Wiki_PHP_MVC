@@ -55,10 +55,29 @@ class TagController extends Controller
         }
     }
 
+    function updateTag()
+    {
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($this->validate($_POST)=="1") {
+                if ($this->tag->updateTag($_POST , $_POST["id"])) {
+                    SessionHelper::set("success", "the tag added with success");
+                    Redirect::back();
+                } else {
+                    SessionHelper::set("error", "faild");
+                    Redirect::back();
+                }
+            } else{
+                    SessionHelper::set("error",$this->validate($_POST));
+                    Redirect::back();
+            }
+        }
+    }
+
 
     private function validate(array $data): string
     {   
-        if(empty($data["category"])) return"please enter  a name ";
+        if(empty($data["tag"])) return "please enter  a name ";
         else if (Helper::validateName($data["tag"]))
             return "please enter a valide name of tag";
         else

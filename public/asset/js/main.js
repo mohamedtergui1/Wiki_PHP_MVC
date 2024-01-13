@@ -86,7 +86,7 @@
         if(typesearch === "title")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbytitle";
          else if(typesearch=="category")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbycategory";
        else if(typesearch=="tag")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbycategory";
-       var  tagCategory ="null";
+       var  tagCategory = $("#categoryTag").val();
         if (search !== "") {
             $("#ResultPlace").html("");
               

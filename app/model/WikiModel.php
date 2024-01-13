@@ -21,6 +21,23 @@ class WikiModel extends Model
       $operatour
     );
   }
+  function slelectWikiInnerTag(int $id = null , array $where = [] , $operatour = "=")
+  { 
+   $place =["1"=>"1"];
+    if($id !== null) $place = ["wiki.id" => $id];
+    else if (!empty($where)) $place = $where;
+    return $this->orm->innerJoinSelect(
+      ["wiki", "user", "category","tag" , "wiki_tag"]
+      ,
+      ["wiki.id", "title", "content", "user.username", "category", "user.image as authorImage" , "wiki.image as wikiImage", "status"]
+      ,
+      [" wiki.userID " => "user.id ", " category.id" => "wiki.categoryID" ,"wiki_tag.tagID" =>" tag.id","wiki_tag.wikiID" =>"wiki.id "]
+      ,
+      $place
+      ,
+      $operatour
+    );
+  }
   function insertWiki(array $data): bool
   {
     return $this->orm->insert("wiki", $data);

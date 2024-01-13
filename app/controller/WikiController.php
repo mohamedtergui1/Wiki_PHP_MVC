@@ -55,8 +55,23 @@ class WikiController extends Controller
     if($_SERVER["REQUEST_METHOD"]=="POST"){
          $a=[];
          $search = $_POST["search"];
-         
-         foreach  ($this->wiki->slelectWiki(null,["wiki.title  " => "'%$search%'  AND status = 'accepted' " ], "LIKE") as $w){
+         $category = $_POST["tagCategory"];
+         $category+=0;
+         foreach  ($this->wiki->slelectWiki(null,["wiki.title  " => "'%$search%' AND category.id =  {$category} AND status = 'accepted' " ], "LIKE") as $w){
+                array_push($a,$w);
+
+         }
+         echo json_encode($a);
+    }
+  }
+
+  function findbytag(){
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+         $a=[];
+         $search = $_POST["search"];
+         $tag = $_POST["tagCategory"];
+         $tag+=0;
+         foreach  ($this->wiki->slelectWikiInnerTag(null,["wiki.title  " => "'%$search%' AND tag.id =  {$tag} AND status = 'accepted' " ], "LIKE") as $w){
                 array_push($a,$w);
 
          }

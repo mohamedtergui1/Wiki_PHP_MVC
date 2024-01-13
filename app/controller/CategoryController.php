@@ -47,6 +47,26 @@ class CategoryController extends Controller
             }
         }
     }
+    
+    function updateCategory()
+    {
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($this->validate($_POST)=="1") {
+               
+                if ($this->category->updateCategory( $_POST,$_POST["id"]  )) {
+                    SessionHelper::set("success", "the Category added with success");
+                    Redirect::back();
+                } else {
+                    SessionHelper::set("error", "faild");
+                    Redirect::back();
+                }
+            } else{
+                SessionHelper::set("error",$this->validate($_POST));
+                Redirect::back();
+            }
+        }
+    }
 
 
     private function validate(array $data): string

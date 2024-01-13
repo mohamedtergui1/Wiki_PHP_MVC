@@ -5,6 +5,18 @@
             <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn">Add Tag</button>
         </div>
 
+        <form id="formEdit" method="post" class="row" action="<?=APP_URL?>tag/updatetag">
+                <div class="form-floating  col">
+                    <input id="edit_name" name="tag" value="" type="text" class="form-control"  placeholder="Your Name">
+                    <input id="edit_id" name= "id" type="hidden" value="" >
+                    <label for="name">name</label>
+                </div>
+                <div class="form-floating  col">
+    
+                    <button type="submit" class="btn btn-primary">edit</button>
+                </div>
+            </form>
+
         <table>
             <thead>
                 <tr>
@@ -20,9 +32,9 @@
                 foreach ($data as $tag):
                     ?>
                     <tr>
-                        <td><?= $tag->tag ?></td>
-                        <td><a href="<?= APP_URL ?>/<?= $tag->id ?>" style="margin-right: 5px;"
-                                class="status inProgress">Edit</a><a href="<?= APP_URL ?>/<?= $tag->id ?>"
+                        <td class="editname" ><?= $tag->tag ?></td>
+                        <td><button value="<?=$tag->id?>" style="margin-right: 5px;"
+                                class="status edit inProgress">Edit</button><a href="<?= APP_URL ?>/<?= $tag->id ?>"
                                 style="margin-left: 5px;"
                                 onclick="return confirm('Are you sure you want to delete this tag?')"
                                 class="status return">delete</a></td>
@@ -72,3 +84,18 @@ SessionHelper::success("success");
 SessionHelper::danger("error");
 
 ?>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#formEdit").hide();
+        const name = $(".editname");
+       
+        $(".edit").each(function (i, e) { 
+            $(e).click(function () {
+                $("#formEdit").show(100);
+                $("#edit_id").val($(e).val());
+                $("#edit_name").val(name[i].textContent);
+            });
+        });
+    });
+</script>
