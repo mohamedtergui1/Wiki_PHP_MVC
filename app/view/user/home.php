@@ -23,29 +23,29 @@
 
 <div class="container">
 
-    <div  style="height:5rem;" class="row height d-flex justify-content-center align-items-center">
-                     <div  class="col-md-2" >
-                        <select id="filter" class="form-select" aria-label="Default select example">
-                           <option value="title">title</option>
-                           <option value="category">category</option>
-                           <option value="tag">tag</option>
-                        </select>
-                    </div>
-            <div  class="col-md-2" >
-                        <select id="categoryTag"  class="form-select " aria-label="Default select example">
-                        
-                        </select>
-                    </div>
-        <div class="col-md-6">
+    <div style="height:5rem;" class="row height d-flex justify-content-center align-items-center">
+        <div class="col-md-2">
+            <select id="filter" class="form-select" aria-label="Default select example">
+                <option value="title">title</option>
+                <option value="category">category</option>
+                <option value="tag">tag</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select id="categoryTag" class="form-select " aria-label="Default select example">
+
+            </select>
+        </div>
+        <div class="col-md-8">
 
             <div class="search">
-                <i class="fa fa-search"></i>
-                <input id="search" type="text" class="form-control" placeholder="Have a question? Ask Now">
-                <button class="btn btn-primary">Search</button>
+
+                <input id="search" type="text" class="form-control" placeholder="search">
+
             </div>
 
         </div>
-       
+
     </div>
 </div>
 
@@ -53,9 +53,9 @@
 
 <div class="container-fluid bg-light py-5">
     <div class="container py-5">
-        
+
         <div id="ResultPlace" class="row g-4">
-        <?php
+            <?php
             foreach ($data["wiki"] as $i => $w):
                 if ($w->wikiImage == null)
                     continue;
@@ -64,8 +64,11 @@
                     <div class="case-item position-relative overflow-hidden rounded mb-2">
                         <img class="img-fluid" src="<?= APP_URL ?>public/asset/wikisImage/<?= $w->wikiImage ?>" alt="">
                         <a class="case-overlay text-decoration-none" href="<?= APP_URL ?>wiki/veiw/<?= $w->id ?>">
-                            <small><?= $w->category ?></small>
-                            <h5 class="lh-base text-white mb-3"><?= $w->title ?>
+                            <small>
+                                <?= $w->category ?>
+                            </small>
+                            <h5 class="lh-base text-white mb-3">
+                                <?= $w->title ?>
                             </h5>
                             <span class="btn btn-square btn-primary"><i class="fa fa-arrow-right"></i></span>
                         </a>
@@ -77,10 +80,12 @@
                                 src="<?= APP_URL ?>public/asset/usersImage/<?= $w->authorImage ?>" alt="author">
 
                         </span>
-                        <h5><?= $w->username ?></h5>
+                        <h5>
+                            <?= $w->username ?>
+                        </h5>
                     </div>
                 </div>
-            <?php
+                <?php
             endforeach;
             ?>
         </div>
@@ -155,7 +160,7 @@
                                 </div>
 
 
-                            <?php
+                                <?php
                             endforeach;
 
                             ?>
@@ -192,7 +197,7 @@
                                 </div>
 
 
-                            <?php
+                                <?php
                             endforeach;
 
                             ?>
@@ -251,7 +256,9 @@
                                     <div class="team-item bg-white text-center rounded p-4 pt-0">
                                         <img style=" height: 18rem;     width: 18rem;" class="img-fluid rounded-circle p-4"
                                             src="<?= APP_URL ?>public/asset/usersImage/<?= $u->image ?>" alt="">
-                                        <h5 class="mb-0"><?= $u->username ?></h5>
+                                        <h5 class="mb-0">
+                                            <?= $u->username ?>
+                                        </h5>
                                         <small>Founder & CEO</small>
                                         <div class="d-flex justify-content-center mt-3">
                                             <a class="btn btn-square btn-primary m-1" href=""><i
@@ -290,7 +297,9 @@
                                     <div class="team-item bg-white text-center rounded p-4 pt-0">
                                         <img style=" height: 18rem;     width: 18rem;" class="img-fluid rounded-circle p-4"
                                             src="<?= APP_URL ?>public/asset/usersImage/<?= $u->image ?>" alt="">
-                                        <h5 class="mb-0"><?= $u->username ?></h5>
+                                        <h5 class="mb-0">
+                                            <?= $u->username ?>
+                                        </h5>
                                         <small>Founder & CEO</small>
                                         <div class="d-flex justify-content-center mt-3">
                                             <a class="btn btn-square btn-primary m-1" href=""><i
@@ -464,24 +473,24 @@
     $(document).ready(function () {
         $("#categoryTag").hide();
         $("#filter").on('change', function () {
-           
+
             var selectedValue = $(this).val().trim();
             var filterSelect = $("#categoryTag");
-     
+
             filterSelect.html("");
 
             if (selectedValue === "title") {
-                filterSelect.hide(100);
+                filterSelect.hide(200);
             } else if (selectedValue === "category") {
                 <?php foreach ($data["category"] as $cate): ?>
-                    filterSelect.append('<option value="<?=$cate->id?>"><?=$cate->category?></option>');
+                    filterSelect.append('<option value="<?= $cate->id ?>"><?= $cate->category ?></option>');
                 <?php endforeach; ?>
-                filterSelect.show(100);
+                filterSelect.show(200);
             } else if (selectedValue === "tag") {
                 <?php foreach ($data["tag"] as $tag): ?>
-                    filterSelect.append('<option value="<?=$tag->id?>"><?=$tag->tag?></option>');
+                    filterSelect.append('<option value="<?= $tag->id ?>"><?= $tag->tag ?></option>');
                 <?php endforeach; ?>
-                filterSelect.show(100);
+                filterSelect.show(200);
             }
         });
     });

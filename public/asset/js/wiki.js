@@ -12,21 +12,40 @@ $(document).ready(function () {
             obj["name"] = $(element).text();
             tags.push(obj);
 
-            $("#tagsPlace").html("");
-            tags.forEach(function (tag) {
-                $("#tagsPlace").append(`
-                    <span data-id="${tag.id}" class="btn btn-secondary m-1 py-3 tagSelected">
-                        ${tag.name}
-                    </span>
-                `);
-            });
+           
+            showtagsunderInput(tags);
 
             $(element).hide();
-            console.log(tags);
+            
         });
     });
     
     
+    function showtagsunderInput(tags){
+        $("#tagsPlace").html("");
+        tags.forEach(function (tag) {
+            $("#tagsPlace").append(`
+                <button value = "${tag.id}" data-id="${tag.id}" class="btn tag btn-secondary m-1 py-3 tagSelected">
+                    ${tag.name}
+                </button>
+            `);
+        });
+    }
+    $(document).on("click", ".tag", function () {
+        const clickedValue = $(this).val(); 
+       
+        tags = tags.filter(tag => tag.id !== clickedValue);
+        
+        showtagsunderInput(tags);
+        
+       
+        $(".tags").each(function (index, element) {  
+             if(  $(element).val() === clickedValue)  $(element).show();
+
+        })
+        
+        console.log(tags);
+    });
     
     
    
