@@ -115,7 +115,7 @@
                                     Add Tags
                                 </span>
                                 <button class="btn btn-primary w-100 py-3" type="submit"><span></span>
-                                    <span id="regester">ADD</span>
+                                    <span id="regester">update</span>
                                     <div id="spiner" class=" spinner-border text-light" role="status">
 
                                     </div>

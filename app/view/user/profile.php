@@ -169,7 +169,7 @@
 
                         <div class="mx-5">
                             <a href="<?= APP_URL ?>editwiki/edit/<?= $w->id ?>" style="margin-left: 5px;"
-                                class="btn btn-primary ">update
+                                class="btn btn-primary ">edit
                             </a>
                             <a href="<?= APP_URL ?>wiki/deleteWiki/<?= $w->id ?>" style="margin-left: 5px;"
                                 onclick="return confirm('Are you sure you want to delete this wiki?')"
