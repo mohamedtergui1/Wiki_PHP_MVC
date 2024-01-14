@@ -57,7 +57,7 @@ class WikiModel extends Model
                 ,
                 [ "tag.tag" ,"tag.id as id" ]
                 ,
-                ["wiki.id" =>  "wiki_tag.tagID" , "tag.id" =>  "wiki_tag.wikiID"]
+                ["wiki.id" =>  "wiki_tag.wikiID" , "tag.id" =>  "wiki_tag.tagID"]
                 ,
                 [ "wiki.id" => $id]
               );

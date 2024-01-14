@@ -15,7 +15,7 @@
         $this->category = new CategoryModel;
         $this->tag = new TagModel;
         $this->wiki = new WikiModel;
-      
+        $this->wikiTag = new WikiTagModel;
       }
       function edit($id){
          $allTags = $this->tag->selectTag();
