@@ -31,11 +31,12 @@ $tag =  $data["tags"];
                                 <?= $wiki->category ?>
                             </small>
                         </div>
-                            <div class="lh-base text-white mb-3 d-flex flex-wrap">
+                            <div class="lh-base text-white mb-3 d-flex flex-wrap"> 
+                                 <h6 class="text-white mx-2 mt-1"  >tags</h6>
                             <?php
                              foreach($tag as $t): 
                               ?>
-                              <h6 class="text-white mx-2 mt-1"  >tags</h6>
+                            
                             <small class="mx-2" >
                                 <?= $t->tag ?>
                             </small>

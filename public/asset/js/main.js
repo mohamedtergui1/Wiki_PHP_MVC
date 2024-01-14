@@ -87,7 +87,7 @@
          else if(typesearch=="category")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbycategory";
        else if(typesearch=="tag")  link= "http://localhost/Wiki_PHP_MVC/wiki/findbycategory";
        var  tagCategory = $("#categoryTag").val();
-        if (search !== "") {
+      
             $("#ResultPlace").html("");
               
             $.ajax({
@@ -106,7 +106,7 @@
                     console.error("Error:", error);
                 }
             });
-        }
+        
     });
     
     

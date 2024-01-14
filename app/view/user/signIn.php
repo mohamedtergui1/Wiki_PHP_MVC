@@ -57,13 +57,13 @@
                                 <div class="col-md-12">
                                     <div class="form-floating">
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <label id="labelEmail" for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Subject">
-                                        <label for="message">Passsword</label>
+                                        <input  type="password" class="form-control" id="password" name="password" placeholder="Subject">
+                                        <label id="labelPassword" for="message">Passsword</label>
                                     </div>
                                 </div>
                                 <div class="col-12">

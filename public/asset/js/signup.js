@@ -44,5 +44,39 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    $("#email").on("blur", (e) => {
+        e.preventDefault();
+    
+        if (emailPattern.test($(e.target).val())) {
+            $("#labelEmail").text("Valid email format").css("color", "green");
+        } else {
+            $("#labelEmail").text("Invalid email format").css("color", "red");
+        }
+    });
+    
+    $("#password").on("blur", (e) => {
+        e.preventDefault();
+    
+        if ($(e.target).val().length < 5) {
+            $("#labelPassword").text("Invalid password format").css("color", "red");
+        } else {
+            $("#labelPassword").text("short password ").css("color", "green");
+        }
+    });
+    const fullNamePattern = /^[a-zA-Z]+(?:\s[a-zA-Z'-]+)*$/;
+    $("#username").on("blur", (e) => {
+        e.preventDefault();
+    
+        if (fullNamePattern.test($(e.target).val())) {
+            $("#labelFullName").text("Invalid full name format").css("color", "red");
+        } else {
+            $("#labelFullName").text("Invalid full name format ").css("color", "green");
+        }
+    });
+    
     
 });
