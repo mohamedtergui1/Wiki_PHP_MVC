@@ -79,10 +79,11 @@ class WikiController extends Controller
     }
   }
   function veiw( int $id  ){
-
-    $this->render("user","wiki","wi.ki", $this ->wiki->slelectWiki($id) );
+   
+    $this->render("user","wiki","wi.ki", [ "wiki" =>  $this ->wiki->slelectWiki($id) , "tags" => $this ->wiki->selectWikiTag($id) ] );
 
   }
+
 
 
 

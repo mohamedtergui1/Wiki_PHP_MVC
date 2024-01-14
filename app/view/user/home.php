@@ -24,6 +24,16 @@
 <div class="container">
 
     <div style="height:5rem;" class="row height d-flex justify-content-center align-items-center">
+
+        <div class="col-md-8">
+
+            <div class="search">
+
+                <input id="search" type="text" class="form-control" placeholder="search">
+
+            </div>
+
+        </div>
         <div class="col-md-2">
             <select id="filter" class="form-select" aria-label="Default select example">
                 <option value="title">title</option>
@@ -36,15 +46,7 @@
 
             </select>
         </div>
-        <div class="col-md-8">
 
-            <div class="search">
-
-                <input id="search" type="text" class="form-control" placeholder="search">
-
-            </div>
-
-        </div>
 
     </div>
 </div>

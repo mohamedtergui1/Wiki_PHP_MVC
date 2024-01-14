@@ -56,7 +56,7 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div action="<?= APP_URL ?>category/addCategory" method="POST" class="modal-dialog">
+    <div  class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
@@ -124,7 +124,7 @@
             </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="<?= APP_URL ?>/public/assets/js/user.js"></script>
+    <script src="<?= APP_URL ?>/public/assets/js/user.js"></script>
     <?php
     use App\Helper\SessionHelper;
 

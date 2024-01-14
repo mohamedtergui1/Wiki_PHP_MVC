@@ -27,7 +27,7 @@ class SignupController extends Controller
             if(!empty($image["image"])) $data += $image;
            
             
-            $data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
+           
 
 
 
@@ -35,7 +35,7 @@ class SignupController extends Controller
 
 
             if ($this->validate($data) == "1") {
- 
+                $data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
                 if ($this->user->insertUser($data)) {
                     
                         $image_tmp = $_FILES["image"]["tmp_name"];

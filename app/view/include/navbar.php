@@ -19,10 +19,10 @@
                         
                             <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><img style="height:2.5rem;"  class="rounded " src="<?=APP_URL . "public/asset/usersImage/" . $infoUser->image?>" alt="profile"></a>
                             <div class="dropdown-menu bg-light mt-2">
-                                <a href="" class="dropdown-item">profile</a>
+                                <a href="<?=APP_URL?>profile/view/<?=$infoUser->id?>" class="dropdown-item">profile</a>
                                 <?php
                             if($admin){ ?>
-                                <a href="<?=APP_URL?>dashboard" >Dashboard</a>
+                                <a href="<?=APP_URL?>dashboard" class="dropdown-item cursor-pointer " >Dashboard</a>
                                 <?php } else {  ?>
                                     <a class="dropdown-item cursor-pointer " href="<?=APP_URL?>addwiki" > Add  Wiki </a>
                                 <?php }?>
