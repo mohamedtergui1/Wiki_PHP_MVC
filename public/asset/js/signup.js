@@ -62,9 +62,9 @@ $(document).ready(function () {
         e.preventDefault();
     
         if ($(e.target).val().length < 5) {
-            $("#labelPassword").text("Invalid password format").css("color", "red");
+            $("#labelPassword").text("short password ").css("color", "red");
         } else {
-            $("#labelPassword").text("short password ").css("color", "green");
+            $("#labelPassword").text("valid password ").css("color", "green");
         }
     });
     const fullNamePattern = /^[a-zA-Z]+(?:\s[a-zA-Z'-]+)*$/;
@@ -72,9 +72,9 @@ $(document).ready(function () {
         e.preventDefault();
     
         if (fullNamePattern.test($(e.target).val())) {
-            $("#labelFullName").text("Invalid full name format").css("color", "red");
+           $("#labelFullName").text("valid  format ").css("color", "green");
         } else {
-            $("#labelFullName").text("Invalid full name format ").css("color", "green");
+             $("#labelFullName").text("Invalid full name format").css("color", "red");
         }
     });
     

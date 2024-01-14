@@ -15,7 +15,7 @@
         $this->category = new CategoryModel;
         $this->tag = new TagModel;
         $this->wiki = new WikiModel;
-    
+        $this->wikiTag = new WikiTagModel;
       }
       function index(){
           if($this->idFromSession){
@@ -46,7 +46,7 @@
                $id_wiki = $this->wiki->lastId();
                if($id_wiki){
                     foreach($tags as $t ){
-                          $this->wiki->insertWikiTag(["wikiID" => $id_wiki, "tagID" => $t]);
+                          $this->wikiTag->insert(["wikiID" => $id_wiki, "tagID" => $t]);
                     }
                     echo "1";
                }else echo "not fount last id inserdet"; 
