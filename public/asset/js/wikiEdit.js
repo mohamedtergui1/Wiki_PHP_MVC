@@ -90,9 +90,9 @@ $(document).ready(function () {
 
                 if (response === "1") {
                     
-                    $("#alert").html("added successful! " ).addClass("alert-success").removeClass("alert-danger").show();
+                    $("#alert").html("update successful! " ).addClass("alert-success").removeClass("alert-danger").show();
                     
-                    swal("your Wiki added successful ", "You clicked the button!", "success")
+                    swal("your Wiki update successful ", "You clicked the button!", "success")
                     // setTimeout(() => {
                     //     window.location.href = "http://localhost/Wiki_PHP_MVC/";
                     // }, 400);

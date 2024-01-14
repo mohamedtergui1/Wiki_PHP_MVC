@@ -40,7 +40,7 @@ class WikiModel extends Model
   }
   function insertWiki(array $data): bool
   {
-    return $this->orm->insertNoProtect("wiki", $data);
+    return $this->orm->insert("wiki", $data);
   }
   function updateWiki(array $data, int $id)
   {

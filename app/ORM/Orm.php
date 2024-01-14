@@ -106,8 +106,9 @@ class Orm
                         break;
 
                     default:
-                         
-                        $stmt->bindValue(":$key", $this->protectXSS($val), PDO::PARAM_STR);
+                      if($key=="content")   
+                        $stmt->bindValue(":$key",$val, PDO::PARAM_STR);
+                    else   $stmt->bindValue(":$key", $this->protectXSS($val), PDO::PARAM_STR);
                 }
             }
 
@@ -118,41 +119,7 @@ class Orm
             return false;
         }
     }
-    public function insertNoProtect(string $table, array $data)
-    {
-        $placeValues = ":" . implode(",:", array_keys($data));
-        $columnNames = implode(",", array_keys($data));
-
-        try {
-            $stmt = $this->db_database_connect->prepare("INSERT INTO {$table} ({$columnNames}) VALUES ({$placeValues})");
-
-            foreach ($data as $key => $val) {
-                if($this->validateNumber($val)){
-                    $val+=0;
-                }
-                $type = gettype($val);
-                switch ($type) {
-                    case "integer":
-                        $stmt->bindValue(":$key", $val, PDO::PARAM_INT);
-                        break;
-
-                    case "boolean":
-                        $stmt->bindValue(":$key", $val, PDO::PARAM_BOOL);
-                        break;
-
-                    default:
-                         
-                        $stmt->bindValue(":$key", $val, PDO::PARAM_STR);
-                }
-            }
-
-            $stmt = $stmt->execute();
-            return $stmt;
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return false;
-        }
-    }
+   
 
 
     public function update(string $table, array $data, int $id)
@@ -180,8 +147,10 @@ class Orm
                         break;
 
                     default:
-                       
-                        $stmt->bindValue(":$key", $this->protectXSS($val), PDO::PARAM_STR);
+                    if($key=="content")   
+                    $stmt->bindValue(":$key",$val, PDO::PARAM_STR);
+                else   $stmt->bindValue(":$key", $this->protectXSS($val), PDO::PARAM_STR);
+                        
                 }
             }
             $stmt->bindValue(":id", $id, PDO::PARAM_INT);
