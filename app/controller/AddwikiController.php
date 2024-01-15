@@ -3,7 +3,7 @@
   use App\Model\CategoryModel;
   use App\Model\TagModel;
   use App\Model\WikiModel;
-  use App\Model\WikiTagModel;
+  
   use App\Helper\Helper;
   class AddwikiController extends Controller{
       private $category ;
@@ -15,7 +15,7 @@
         $this->category = new CategoryModel;
         $this->tag = new TagModel;
         $this->wiki = new WikiModel;
-        $this->wikiTag = new WikiTagModel;
+        
       }
       function index(){
           if($this->idFromSession){

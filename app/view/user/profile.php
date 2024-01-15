@@ -114,9 +114,15 @@
                 </h3>
                 <p>
                     <?= $infoUser->bio ?>
-                </p> <a href="javascript:void(0)"
+                </p> 
+                <a href="javascript:void(0)"
                     class="m-t-10 waves-effect waves-dark btn btn-primary btn-md btn-rounded"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-abc="true">Edit</a>
-                <div class="row text-center m-t-20">
+                    <a 
+                    class="m-t-10 waves-effect waves-dark btn btn-danger btn-md btn-rounded"   href="<?= APP_URL ?>user/delete/<?= $infoUser->id ?>"
+                               
+                                onclick="return confirm('Are you sure you want to delete your account ?')"data-abc="true">delete</a>
+                
+                    <div class="row text-center m-t-20">
                     <div class="col-lg-4 col-md-4 m-t-20">
                         <h3 class="m-b-0 font-light">10434</h3><small>Articles</small>
                     </div>
