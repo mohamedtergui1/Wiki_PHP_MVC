@@ -43,9 +43,7 @@
             <ul>
                 <li>
                     <a href="<?=APP_URL?>">
-                        <span class="icon">
-                            <ion-icon name="logo-apple"></ion-icon>
-                        </span>
+                        
                         <span class="title">Wi.Ki</span>
                     </a>
                 </li>
@@ -118,7 +116,7 @@
                 <div class="search">
                     <label>
                         <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
+                       
                     </label>
                 </div>
 

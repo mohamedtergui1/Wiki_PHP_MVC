@@ -3,7 +3,6 @@
   use App\Model\CategoryModel;
   use App\Model\TagModel;
   use App\Model\WikiModel;
-  use App\Model\WikiTagModel;
   use App\Helper\Helper;
   class EditwikiController extends Controller {
       private $category ;
@@ -15,7 +14,7 @@
         $this->category = new CategoryModel;
         $this->tag = new TagModel;
         $this->wiki = new WikiModel;
-        $this->wikiTag = new WikiTagModel;
+       
       }
       function edit($id){
          $allTags = $this->tag->selectTag();

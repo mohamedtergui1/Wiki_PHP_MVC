@@ -9,10 +9,7 @@ $(document).ready(function () {
         $("#signIn").hide();
     
         var formData = new FormData(this);
-        
-        
-     
-    
+            
         $.ajax({
             type: "POST",
             url: "http://localhost/Wiki_PHP_MVC/signin/login",

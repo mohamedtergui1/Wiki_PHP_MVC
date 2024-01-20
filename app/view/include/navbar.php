@@ -23,9 +23,9 @@
                                 <?php
                             if($admin){ ?>
                                 <a href="<?=APP_URL?>dashboard" class="dropdown-item cursor-pointer " >Dashboard</a>
-                                <?php } else {  ?>
+                                <?php }   ?>
                                     <a class="dropdown-item cursor-pointer " href="<?=APP_URL?>addwiki" > Add  Wiki </a>
-                                <?php }?>
+                                
                                 <li id="logOut" class="dropdown-item cursor-pointer "> Log Out</li>
                                 <?php }else  {?>
                            
